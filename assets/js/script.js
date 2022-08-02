@@ -1,6 +1,6 @@
 const getPokemons = id => `https://pokeapi.co/api/v2/pokemon/${id}`;
 
-const generatePokemonPromises = () => Array(905).fill().map((_, index) =>
+const generatePokemonPromises = () => Array(5).fill().map((_, index) =>
   fetch(getPokemons(index + 1)).then(response => response.json()));
   
 const generateHTML = pokemons => pokemons.reduce((accumulator, {name, id, types}) => {
@@ -34,8 +34,7 @@ Promise.all(fetchPokemon)
   .then(insertPokemonIntoPage)
 
 const fetchpokemon = async (pokemon) => {
-  const responseAPI = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-  console.log(responseAPI)
+  const responseAPI = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`);
   if(responseAPI.status === 200){
     const data = await responseAPI.json();
 
@@ -95,7 +94,7 @@ buscPokemon.addEventListener('click', () => {
 
   renderPokemon(inputpokemon.value);
 
-  if(String(inputpokemon.value) === '' || inputpokemon.value === '0' || Number(inputpokemon.value) >= 906){
+  if(String(inputpokemon.value.toLowerCase()) === '' || inputpokemon.value === '0' || Number(inputpokemon.value) >= 906){
     window.alert('[404]: Pokemon indisponivel ou campo não preenchido');
 
     removeBusc.style.display = 'none'

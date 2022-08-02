@@ -208,11 +208,19 @@ img{
   .cardAll{
     grid-template-columns: 1fr 1fr;
   }
+
+  .removeBusc{
+    width: 20vw;
+  }
+
+  .buscPokemon{
+    width: 18vw;
+  }
 }
 
 @media(max-width: 650px){
   .input-pokemon{
-    width: 80vw;
+    width: 75vw;
   }
 }
 
