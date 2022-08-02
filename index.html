@@ -5,20 +5,34 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/script.js" defer></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/script.js" defer></script>
+  <script src="https://kit.fontawesome.com/f8f383386e.js" crossorigin="anonymous"></script>
   <title>Pokedex</title>
+  <link rel="icon" href="assets/imgs/pokebola.ico">
 </head>
 <body>
+  <header>
+    <h1>POKEDEX</p>
+  </header>
+
+  <div class="areaSearchPokemon">
+    <input type="text" class="input-pokemon" placeholder="pokemon name or id. max:905">
+    <button type="button" class="buscPokemon"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+  <button type="button" class="removeBusc"><i class="fa-solid fa-trash-can"></i></button>
+
   <div class="container">
-    <div class="loading">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="loader">
     </div>
-    <div class="card"></div>
+    <div class="cardAll"></div>
+  </div>
+  <div class="cardSpecific">
+    <div class="pokemonSelect">
+      <img src="" alt="" class="pokemonImg">
+      <h2 class="namePokemon"></h2>
+      <p class="typePokemon"></p>
+    </div>
   </div>
 </body>
 </html>
