@@ -25,6 +25,10 @@ const insertPokemonIntoPage = pokemons => {
     
     const areaSearchPokemon = document.querySelector('.areaSearchPokemon');
     areaSearchPokemon.style.display = 'flex'
+
+    const backToTop = document.querySelector('.backToTop');
+    backToTop.style.display = 'inline'
+    backToTop.style.position = 'fixed'
 }
 
 const fetchPokemon = generatePokemonPromises();
@@ -37,7 +41,6 @@ const fetchpokemon = async (pokemon) => {
   const responseAPI = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`);
   if(responseAPI.status === 200){
     const data = await responseAPI.json();
-
     return data
   }
 }
@@ -50,17 +53,7 @@ const renderPokemon = async (pokemon) => {
     removeBusc.style.display = 'block'
 
     const pokemons = document.querySelector('.pokemonSelect');
-    pokemons.classList.remove('grass');
-    pokemons.classList.remove('water');
-    pokemons.classList.remove('electric');
-    pokemons.classList.remove('bug');
-    pokemons.classList.remove('poison');
-    pokemons.classList.remove('ground');
-    pokemons.classList.remove('fairy');
-    pokemons.classList.remove('fighting');
-    pokemons.classList.remove('psychic');
-    pokemons.classList.remove('fire');
-    pokemons.classList.remove('normal');
+    pokemons.classList.remove('grass', 'water', 'electric', 'bug', 'poison', 'ground', 'fairy', 'fighting', 'psychic', 'fire', 'normal');
     pokemons.classList.add(`${data.types[0].type.name}`);
 
     const pokemonImg = document.querySelector('.pokemonImg');
@@ -80,21 +73,32 @@ const renderPokemon = async (pokemon) => {
     cardAll.style.display = 'none'
 
     card.appendChild(pokemons);
+
+    const backToTop = document.querySelector('.backToTop');
+    backToTop.style.position = 'none'
+    backToTop.style.display = 'none'
   }
   else{
     window.alert('[404]: pokemon não disponivel')
   }
-
 }
 
 const buscPokemon = document.querySelector('.buscPokemon');
 
+function inputIsEmpty(inputPokemon){
+  if(inputPokemon.value === ''){
+    return true
+  } else{
+    return false
+  }
+}
+
 buscPokemon.addEventListener('click', () => {
-  const inputpokemon = document.querySelector('.input-pokemon');
+  const inputPokemon = document.querySelector('.input-pokemon');
 
-  renderPokemon(inputpokemon.value);
+  renderPokemon(inputPokemon.value);
 
-  if(String(inputpokemon.value.toLowerCase()) === '' || inputpokemon.value === '0' || Number(inputpokemon.value) >= 906){
+  if(inputIsEmpty(inputPokemon)){
     window.alert('[404]: Pokemon indisponivel ou campo não preenchido');
 
     removeBusc.style.display = 'none'
@@ -113,6 +117,13 @@ removeBusc.addEventListener('click', () => {
 
   const cardAll = document.querySelector('.cardAll');
   cardAll.style.display = 'grid'
+
+  const inputPokemon = document.querySelector('.input-pokemon')
+  inputPokemon.value = ''
+
+  const backToTop = document.querySelector('.backToTop');
+  backToTop.style.position = 'fixed'
+  backToTop.style.display = 'inline'
 
   removeBusc.style.display = 'none'
 })

@@ -61,6 +61,20 @@ header{
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
+.backToTop{
+  display: none;
+  bottom: 12px;
+  right: 5px;
+  border-radius: 13px;
+  width: 30px;
+  height: 35px;
+}
+
+.backToTopLink{
+  text-align: center;
+  font-size: 25px
+}
+
 .cardSpecific{
   display: none;
 }
