@@ -1,6 +1,6 @@
 const getPokemons = id => `https://pokeapi.co/api/v2/pokemon/${id}`;
 
-const generatePokemonPromises = () => Array(905).fill().map((_, index) =>
+const generatePokemonPromises = () => Array(300).fill().map((_, index) =>
   fetch(getPokemons(index + 1)).then(response => response.json()));
   
 const generateHTML = pokemons => pokemons.reduce((accumulator, {name, id, types}) => {
