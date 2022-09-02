@@ -93,22 +93,21 @@ function inputIsEmpty(inputPokemon){
   }
 }
 
-buscPokemon.addEventListener('click', () => {
+buscPokemon.addEventListener('click', (e) => {
+  e.preventDefault()
   const inputPokemon = document.querySelector('.input-pokemon');
 
-  renderPokemon(inputPokemon.value);
-
   if(inputIsEmpty(inputPokemon)){
-    window.alert('[404]: Pokemon indisponivel ou campo não preenchido');
-
-    removeBusc.style.display = 'none'
+    window.alert('input a pokemon')
 
     const card = document.querySelector('.cardSpecific');
     card.style.display = 'none'
-  
+    
     const cardAll = document.querySelector('.cardAll');
-    cardAll.style.display = 'grid'
+    return cardAll.style.display = 'grid'
   } 
+
+  renderPokemon(inputPokemon.value);
 });
 
 removeBusc.addEventListener('click', () => {
@@ -127,3 +126,15 @@ removeBusc.addEventListener('click', () => {
 
   removeBusc.style.display = 'none'
 })
+
+/* Scroll to top */
+
+const buttonToTopVisible = () => {
+  window.scroll({
+    top: 0, // subir ao topo
+    behavior: 'smooth' // Subir suave
+  })
+}
+
+const backToTop = document.querySelector('.backToTop')
+backToTop.onclick = buttonToTopVisible;

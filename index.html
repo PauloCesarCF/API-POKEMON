@@ -16,11 +16,11 @@
     <h1>POKEDEX</p>
   </header>
 
-  <div class="areaSearchPokemon">
-    <input type="text" class="input-pokemon" placeholder="pokemon name or id. max:905">
-    <button type="button" class="buscPokemon"><i class="fa-solid fa-magnifying-glass"></i></button>
-  </div>
-  <button type="button" class="removeBusc"><i class="fa-solid fa-trash-can"></i></button>
+  <form class="areaSearchPokemon">
+    <input type="text" class="input-pokemon" placeholder="pokemon name or id. max:905" required>
+    <button type="submit" class="buscPokemon"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </form>
+  <button type="submit" class="removeBusc"><i class="fa-solid fa-trash-can"></i></button>
 
   <div class="container">
     <div class="loader">
@@ -36,6 +36,6 @@
       <p class="typePokemon"></p>
     </div>
   </div>
-  <button type="button" class="backToTop"><a href="#header" class="backToTopLink"><i class="fa-solid fa-arrow-up"></i></a></button>
+  <button type="button" class="backToTop"><i class="fa-solid fa-arrow-up"></i></button>
 </body>
 </html>
