@@ -1,41 +1,48 @@
 const getPokemons = id => `https://pokeapi.co/api/v2/pokemon/${id}`;
 
-const generatePokemonPromises = () => Array(300).fill().map((_, index) =>
-  fetch(getPokemons(index + 1)).then(response => response.json()));
+const poke = async () => {
+  const pokemonPromises = []
   
-const generateHTML = pokemons => pokemons.reduce((accumulator, {name, id, types}) => {
-    const elementsTypes = types.map(typeInfo => typeInfo.type.name)
+    for (let i = 1; i <= 150; i++) {
+      pokemonPromises.push(fetch(getPokemons(i)).then(response => response.json()))
+    }
+
+    await Promise.all(pokemonPromises)
+      .then(pokemons => {
+        console.log(pokemons)
   
-    accumulator += `
-    <div class="pokemons ${elementsTypes[0]}">
-    <img class"pokemon" alt="${name}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png">
-    <h2>${id} - ${name}</h2>
-    <p>${elementsTypes.join(' | ')}</p>
-    </div>
-    `
-    return accumulator
-  }, '');
-
-const insertPokemonIntoPage = pokemons => {
-    const card = document.querySelector('.cardAll');
-    card.innerHTML = pokemons
-
-    const loading = document.querySelector('.loader');
-    loading.style.display = 'none'
-    
-    const areaSearchPokemon = document.querySelector('.areaSearchPokemon');
-    areaSearchPokemon.style.display = 'flex'
-
-    const backToTop = document.querySelector('.backToTop');
-    backToTop.style.display = 'inline'
-    backToTop.style.position = 'fixed'
+        const lisPokemons = pokemons.reduce((accumulator, pokemon) => {
+          const types = pokemon.types.map(typeInfo => typeInfo.type.name)
+  
+          accumulator += `
+          <div class="pokemons ${types[0]}">
+          <img alt="${pokemon.name}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png">
+          <h2>${pokemon.id}. ${pokemon.name}</h2>
+          <p>${types.join(' | ')}</p>
+          </div>
+          `
+          return accumulator
+        }, '')
+  
+        const card = document.querySelector('.cardAll');
+        card.innerHTML = lisPokemons
+          
+        const loading = document.querySelector('.loader');
+        loading.style.display = 'none'
+          
+        const areaSearchPokemon = document.querySelector('.areaSearchPokemon');
+        areaSearchPokemon.style.display = 'flex'
+          
+        const backToTop = document.querySelector('.backToTop');
+        backToTop.style.display = 'inline'
+        backToTop.style.position = 'fixed'
+      })
+  
+      const loading = document.querySelector('.loading')
+      loading.style.display = 'none'
 }
-
-const fetchPokemon = generatePokemonPromises();
-
-Promise.all(fetchPokemon)
-  .then(generateHTML)
-  .then(insertPokemonIntoPage)
+  
+poke()
 
 const fetchpokemon = async (pokemon) => {
   const responseAPI = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`);
