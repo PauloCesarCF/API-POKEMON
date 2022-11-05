@@ -2,51 +2,51 @@ const getPokemons = id => `https://pokeapi.co/api/v2/pokemon/${id}`;
 
 const poke = async () => {
   const pokemonPromises = []
-  
-    for (let i = 1; i <= 150; i++) {
-      pokemonPromises.push(fetch(getPokemons(i)).then(response => response.json()))
-    }
 
-    await Promise.all(pokemonPromises)
-      .then(pokemons => {
-        console.log(pokemons)
-  
-        const lisPokemons = pokemons.reduce((accumulator, pokemon) => {
-          const types = pokemon.types.map(typeInfo => typeInfo.type.name)
-  
-          accumulator += `
-          <div class="pokemons ${types[0]}">
+  for (let i = 1; i <= 150; i++) {
+    pokemonPromises.push(fetch(getPokemons(i)).then(response => response.json()))
+  }
+
+  await Promise.all(pokemonPromises)
+    .then(pokemons => {
+      console.log(pokemons)
+
+      const lisPokemons = pokemons.reduce((accumulator, pokemon) => {
+        const types = pokemon.types.map(typeInfo => typeInfo.type.name)
+
+        accumulator += `
+          <div class="pokemons">
           <img alt="${pokemon.name}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png">
           <h2>${pokemon.id}. ${pokemon.name}</h2>
           <p>${types.join(' | ')}</p>
           </div>
           `
-          return accumulator
-        }, '')
-  
-        const card = document.querySelector('.cardAll');
-        card.innerHTML = lisPokemons
-          
-        const loading = document.querySelector('.loader');
-        loading.style.display = 'none'
-          
-        const areaSearchPokemon = document.querySelector('.areaSearchPokemon');
-        areaSearchPokemon.style.display = 'flex'
-          
-        const backToTop = document.querySelector('.backToTop');
-        backToTop.style.display = 'inline'
-        backToTop.style.position = 'fixed'
-      })
-  
-      const loading = document.querySelector('.loading')
+        return accumulator
+      }, '')
+
+      const card = document.querySelector('.cardAll');
+      card.innerHTML = lisPokemons
+
+      const loading = document.querySelector('.loader');
       loading.style.display = 'none'
+
+      const areaSearchPokemon = document.querySelector('.areaSearchPokemon');
+      areaSearchPokemon.style.display = 'flex'
+
+      const backToTop = document.querySelector('.backToTop');
+      backToTop.style.display = 'inline'
+      backToTop.style.position = 'fixed'
+    })
+
+  const loading = document.querySelector('.loading')
+  loading.style.display = 'none'
 }
-  
+
 poke()
 
 const fetchpokemon = async (pokemon) => {
   const responseAPI = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`);
-  if(responseAPI.status === 200){
+  if (responseAPI.status === 200) {
     const data = await responseAPI.json();
     return data
   }
@@ -56,7 +56,7 @@ const removeBusc = document.querySelector('.removeBusc');
 
 const renderPokemon = async (pokemon) => {
   const data = await fetchpokemon(pokemon);
-  if(data){
+  if (data) {
     removeBusc.style.display = 'block'
 
     const pokemons = document.querySelector('.pokemonSelect');
@@ -72,7 +72,7 @@ const renderPokemon = async (pokemon) => {
 
     const typePokemon = document.querySelector('.typePokemon');
     typePokemon.innerHTML = `${data.types[0].type.name}`
-    
+
     const card = document.querySelector('.cardSpecific');
     card.style.display = 'block'
 
@@ -85,17 +85,17 @@ const renderPokemon = async (pokemon) => {
     backToTop.style.position = 'none'
     backToTop.style.display = 'none'
   }
-  else{
+  else {
     window.alert('[404]: pokemon não disponivel')
   }
 }
 
 const buscPokemon = document.querySelector('.buscPokemon');
 
-function inputIsEmpty(inputPokemon){
-  if(inputPokemon.value === ''){
+function inputIsEmpty(inputPokemon) {
+  if (inputPokemon.value === '') {
     return true
-  } else{
+  } else {
     return false
   }
 }
@@ -104,15 +104,15 @@ buscPokemon.addEventListener('click', (e) => {
   e.preventDefault()
   const inputPokemon = document.querySelector('.input-pokemon');
 
-  if(inputIsEmpty(inputPokemon)){
+  if (inputIsEmpty(inputPokemon)) {
     window.alert('input a pokemon')
 
     const card = document.querySelector('.cardSpecific');
     card.style.display = 'none'
-    
+
     const cardAll = document.querySelector('.cardAll');
     return cardAll.style.display = 'grid'
-  } 
+  }
 
   renderPokemon(inputPokemon.value);
 });
